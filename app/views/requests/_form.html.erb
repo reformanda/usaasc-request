@@ -1,0 +1,105 @@
+<%= form_for(@request) do |f| %>
+  <% if @request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:</h2>
+
+      <ul>
+      <% @request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+  </div>
+  <div class="field">
+    <%= f.label :phone %><br>
+    <%= f.text_field :phone %>
+  </div>
+  <div class="field">
+    <%= f.label :other_phone %><br>
+    <%= f.text_field :other_phone %>
+  </div>
+  <div class="field">
+    <%= f.label :laptop_issue %><br>
+    <%= f.check_box :laptop_issue %>
+  </div>
+  <div class="field">
+    <%= f.label :laptop_desc %><br>
+    <%= f.text_area :laptop_desc %>
+  </div>
+  <div class="field">
+    <%= f.label :software_issue %><br>
+    <%= f.check_box :software_issue %>
+  </div>
+  <div class="field">
+    <%= f.label :software_desc %><br>
+    <%= f.text_area :software_desc %>
+  </div>
+  <div class="field">
+    <%= f.label :blackberry_issue %><br>
+    <%= f.check_box :blackberry_issue %>
+  </div>
+  <div class="field">
+    <%= f.label :blackberry_desc %><br>
+    <%= f.text_area :blackberry_desc %>
+  </div>
+  <div class="field">
+    <%= f.label :email_issue %><br>
+    <%= f.check_box :email_issue %>
+  </div>
+  <div class="field">
+    <%= f.label :email_desc %><br>
+    <%= f.text_area :email_desc %>
+  </div>
+  <div class="field">
+    <%= f.label :pst_issue %><br>
+    <%= f.check_box :pst_issue %>
+  </div>
+  <div class="field">
+    <%= f.label :pst_desc %><br>
+    <%= f.text_area :pst_desc %>
+  </div>
+  <div class="field">
+    <%= f.label :shared_folder_issue %><br>
+    <%= f.check_box :shared_folder_issue %>
+  </div>
+  <div class="field">
+    <%= f.label :shared_folder_desc %><br>
+    <%= f.text_area :shared_folder_desc %>
+  </div>
+  <div class="field">
+    <%= f.label :other_hardware_issue %><br>
+    <%= f.check_box :other_hardware_issue %>
+  </div>
+  <div class="field">
+    <%= f.label :other_hardware_desc %><br>
+    <%= f.text_area :other_hardware_desc %>
+  </div>
+  <div class="field">
+    <%= f.label :air_card_issue %><br>
+    <%= f.check_box :air_card_issue %>
+  </div>
+  <div class="field">
+    <%= f.label :air_card_desc %><br>
+    <%= f.text_area :air_card_desc %>
+  </div>
+  <div class="field">
+    <%= f.label :other_issue %><br>
+    <%= f.check_box :other_issue %>
+  </div>
+  <div class="field">
+    <%= f.label :other_issue %><br>
+    <%= f.text_area :other_issue %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

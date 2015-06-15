@@ -1,0 +1,23 @@
+USAASC Request
+==============
+
+This application is simple help desk request system.  It borrows heavily from the the [RailsApps Project](http://railsapps.github.io/) for setting up:
+*  devise
+*  bootstrap
+*  rspec/capybara
+
+Ruby on Rails
+-------------
+
+This application requires:
+
+- Ruby 2.2.2
+- Rails 4.2.1
+
+
+System dependencies
+-------------------
+
+[poltergeist](https://github.com/teampoltergeist/poltergeist)
+
+
