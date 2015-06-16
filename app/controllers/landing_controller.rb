@@ -1,7 +1,13 @@
 class LandingController < ApplicationController
 
-	def set_confirmation
+
+
+	def index
+	end
+
+	def create
 		session["tos_confirmation"] = true
+		redirect_to action: "index"
 	end
 
 end
