@@ -15,11 +15,11 @@
         </li><li>Notwithstanding the above, using this IS does not constitute consent to PM, LE or CI investigative searching or monitoring of the content of privileged communications, or work product, related to personal representation or services by attorneys, psychotherapists, or clergy, and their assistants. Such communications and work product are private and confidential. See <a target="_blank" href="/assets/STANDARD MANDATORY NOTICE AND CONSENT PROVISION.pdf" title="Standard Mandatory Notice and Consent Form" >User Agreement</a> for details.</li></ul>
         <br/>
         <p>
-            <%= form_tag(landing_index_path, method: "post") do %>
+            <%= form_tag(landing_index_path, method: "post") do  |f| %>
             
-            <div class="actions">
-                <%= submit_tag("Continue") %>
-            </div>
+            
+                <%= submit_tag 'Continue', class: 'btn btn-primary right' %>
+            
             <% end %>
         </p>
 
