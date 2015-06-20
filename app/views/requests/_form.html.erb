@@ -1,4 +1,4 @@
-<%= form_for(@request) do |f| %>
+<%= simple_form_for @request  do |f| %>
   <% if @request.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:</h2>
@@ -11,95 +11,104 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :phone %><br>
-    <%= f.text_field :phone %>
-  </div>
-  <div class="field">
-    <%= f.label :other_phone %><br>
-    <%= f.text_field :other_phone %>
-  </div>
-  <div class="field">
-    <%= f.label :laptop_issue %><br>
-    <%= f.check_box :laptop_issue %>
-  </div>
-  <div class="field">
-    <%= f.label :laptop_desc %><br>
-    <%= f.text_area :laptop_desc %>
-  </div>
-  <div class="field">
-    <%= f.label :software_issue %><br>
-    <%= f.check_box :software_issue %>
-  </div>
-  <div class="field">
-    <%= f.label :software_desc %><br>
-    <%= f.text_area :software_desc %>
-  </div>
-  <div class="field">
-    <%= f.label :blackberry_issue %><br>
-    <%= f.check_box :blackberry_issue %>
-  </div>
-  <div class="field">
-    <%= f.label :blackberry_desc %><br>
-    <%= f.text_area :blackberry_desc %>
-  </div>
-  <div class="field">
-    <%= f.label :email_issue %><br>
-    <%= f.check_box :email_issue %>
-  </div>
-  <div class="field">
-    <%= f.label :email_desc %><br>
-    <%= f.text_area :email_desc %>
-  </div>
-  <div class="field">
-    <%= f.label :pst_issue %><br>
-    <%= f.check_box :pst_issue %>
-  </div>
-  <div class="field">
-    <%= f.label :pst_desc %><br>
-    <%= f.text_area :pst_desc %>
-  </div>
-  <div class="field">
-    <%= f.label :shared_folder_issue %><br>
-    <%= f.check_box :shared_folder_issue %>
-  </div>
-  <div class="field">
-    <%= f.label :shared_folder_desc %><br>
-    <%= f.text_area :shared_folder_desc %>
-  </div>
-  <div class="field">
-    <%= f.label :other_hardware_issue %><br>
-    <%= f.check_box :other_hardware_issue %>
-  </div>
-  <div class="field">
-    <%= f.label :other_hardware_desc %><br>
-    <%= f.text_area :other_hardware_desc %>
-  </div>
-  <div class="field">
-    <%= f.label :air_card_issue %><br>
-    <%= f.check_box :air_card_issue %>
-  </div>
-  <div class="field">
-    <%= f.label :air_card_desc %><br>
-    <%= f.text_area :air_card_desc %>
-  </div>
-  <div class="field">
-    <%= f.label :other_issue %><br>
-    <%= f.check_box :other_issue %>
-  </div>
-  <div class="field">
-    <%= f.label :other_issue %><br>
-    <%= f.text_area :other_issue %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= f.input :name, placeholder: 'Name' %>
+
+<%= f.input :email, placeholder: 'Email' %>
+
+<%= f.input :phone, placeholder: 'Phone' %>
+
+<%= f.input :other_phone, placeholder: 'Blackberry', label_input: 'Blackberry' %>
+
+<hr/>
+                
+<div class="row">
+<div class="col-md-6">
+   
+<%= f.input :laptop_issue, as: :boolean %>
+
+<%= f.input :laptop_desc, placeholder: 'Description', label: 'Description' %>
+
+</div>
+
+<div class="col-md-6">
+<%= f.input :software_issue, as: :boolean %>
+
+<%= f.input :software_desc, placeholder: 'Description', label: 'Description' %>
+</div>  
+</div>
+
+<div class="row">
+<div class="col-md-6">
+
+
+<%= f.input :blackberry_issue, as: :boolean %>
+
+<%= f.input :blackberry_desc, placeholder: 'Description', label: 'Description' %>
+
+</div>
+
+<div class="col-md-6">
+
+<%= f.input :email_issue, as: :boolean %>
+
+<%= f.input :email_desc, placeholder: 'Description', label: 'Description' %>
+
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-6">
+
+
+<%= f.input :pst_issue, as: :boolean %>
+
+<%= f.input :pst_desc, placeholder: 'Description', label: 'Description' %>
+
+
+</div>
+
+<div class="col-md-6">
+
+<%= f.input :shared_folder_issue, as: :boolean %>
+
+<%= f.input :shared_folder_desc, placeholder: 'Description', label: 'Description' %>
+
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-6">
+
+
+<%= f.input :other_hardware_issue, as: :boolean %>
+
+<%= f.input :other_hardware_desc, placeholder: 'Description', label: 'Description' %>
+
+</div>
+
+<div class="col-md-6">
+
+<%= f.input :air_card_issue, as: :boolean %>
+
+<%= f.input :air_card_desc, placeholder: 'Description', label: 'Description' %>
+  
+</div>
+</div>
+
+<div class="row">
+<div class="col-md-6">
+
+<%= f.input :other_issue, as: :boolean %>
+
+<%= f.input :other_desc, placeholder: 'Description', label: 'Description' %>
+
+</div>
+</div>
+
+<%= f.button :submit  %>
+
 <% end %>
+
+<hr/>
+
+

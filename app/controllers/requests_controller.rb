@@ -1,9 +1,15 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy]
 
+
+  add_breadcrumb "Home", :root_path
+  #add_breadcrumb "Requests", :request_index_path
+
+
   # GET /requests
   # GET /requests.json
   def index
+    add_breadcrumb "index", :requests_path
     @requests = Request.all
   end
 
@@ -14,11 +20,13 @@ class RequestsController < ApplicationController
 
   # GET /requests/new
   def new
+    add_breadcrumb "new", :new_request_path
     @request = Request.new
   end
 
   # GET /requests/1/edit
   def edit
+
   end
 
   # POST /requests
