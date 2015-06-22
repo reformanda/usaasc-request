@@ -1,7 +1,6 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy]
 
-
   add_breadcrumb "Home", :root_path
   #add_breadcrumb "Requests", :request_index_path
 
