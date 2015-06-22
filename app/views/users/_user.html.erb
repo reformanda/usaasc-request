@@ -1,12 +1,51 @@
-<td>
-  <%= link_to user.email, user %>
-</td>
-<td>
-  <%= form_for(user) do |f| %>
-    <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-    <%= f.submit 'Change Role', :class => 'button-xs' %>
+
+<%= form_for(@user, html: { role: 'form', method: :post }) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
   <% end %>
-</td>
-<td>
-  <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button-xs') unless user == current_user %>
-</td>
+  
+  <div class="row">
+    <div class=" form-group col-md-6">
+      <%= f.label :name %>
+      <%= f.text_field :name, autofocus: true, class: 'form-control'%>
+    </div>
+   </div> 
+
+  <div class="row">
+    <div class=" form-group col-md-6">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, class: 'form-control'%>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class=" form-group col-md-3">
+      <%= f.label :phone %>
+      <%= f.text_field :phone, autofocus: true, class: 'form-control'%>
+    </div>
+
+    <div class=" form-group col-md-3">
+      <%= f.label :other_phone, 'Blackberry' %>
+      <%= f.text_field :other_phone, autofocus: true, class: 'form-control'%>
+    </div>
+  </div>
+
+ 
+  <div class="actions">
+    <%= f.submit :class => 'btn btn-primary button right' %>
+ 
+  </div>
+
+
+<% end %>
+
+
+

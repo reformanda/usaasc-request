@@ -8,7 +8,6 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
-    add_breadcrumb "index", :requests_path
     @requests = Request.all
   end
 
@@ -19,7 +18,6 @@ class RequestsController < ApplicationController
 
   # GET /requests/new
   def new
-    add_breadcrumb "new", :new_request_path
     @request = Request.new
   end
 
