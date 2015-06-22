@@ -27,8 +27,8 @@
         </div>
       <% end -%>
     </div>
-           <%- if devise_mapping.recoverable? %>
-        <%= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
-      <% end -%> 
+    <%- if devise_mapping.recoverable? %>
+      <%= link_to "Forgot password?", new_password_path(resource_name), class: 'right' %>
+    <% end -%> 
   <% end %>
 
