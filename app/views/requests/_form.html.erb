@@ -12,29 +12,49 @@
     </div>
   <% end %>
 
-<%= f.input :name, placeholder: 'Name' %>
 
-<%= f.input :email, placeholder: 'Email' %>
+  <div class="row">
+    <div class=" form-group col-md-6">
+      <%= f.label :name %>
+      <%= f.text_field :name, autofocus: true, class: 'form-control readonly'%>
+    </div>
+  </div> 
 
-<%= f.input :phone, placeholder: 'Phone' %>
+  <div class="row">
+    <div class=" form-group col-md-6">
+      <%= f.label :email %>
+      <%= f.email_field :email, autofocus: true, class: 'form-control'%>
+    </div>
+  </div>
 
-<%= f.input :other_phone, placeholder: 'Blackberry', label_input: 'Blackberry' %>
+  <div class="row">
+    <div class=" form-group col-md-3">
+      <%= f.label :phone %>
+      <%= f.text_field :phone, autofocus: true, class: 'form-control'%>
+    </div>
+
+    <div class=" form-group col-md-3">
+      <%= f.label :other_phone, 'Blackberry' %>
+      <%= f.text_field :other_phone, autofocus: true, class: 'form-control'%>
+    </div>
+  </div>
+
 
 <hr/>
                 
 <div class="row">
 <div class="col-md-6">
    
-<%= f.input :laptop_issue, as: :boolean %>
+<%= f.check_box :laptop_issue, as: :boolean %>
 
-<%= f.input :laptop_desc, placeholder: 'Description', label: 'Description' %>
+<%= f.text_field :laptop_desc, placeholder: 'Description', label: 'Description', class: 'form-control'%>
 
 </div>
 
 <div class="col-md-6">
-<%= f.input :software_issue, as: :boolean %>
+<%= f.check_box :software_issue, as: :boolean %>
 
-<%= f.input :software_desc, placeholder: 'Description', label: 'Description' %>
+<%= f.text_field :software_desc, placeholder: 'Description', label: 'Description', class: 'form-control' %>
 </div>  
 </div>
 
@@ -42,17 +62,17 @@
 <div class="col-md-6">
 
 
-<%= f.input :blackberry_issue, as: :boolean %>
+<%= f.check_box :blackberry_issue, as: :boolean %>
 
-<%= f.input :blackberry_desc, placeholder: 'Description', label: 'Description' %>
+<%= f.text_field :blackberry_desc, placeholder: 'Description', label: 'Description',class: 'form-control' %>
 
 </div>
 
 <div class="col-md-6">
 
-<%= f.input :email_issue, as: :boolean %>
+<%= f.check_box :email_issue, as: :boolean %>
 
-<%= f.input :email_desc, placeholder: 'Description', label: 'Description' %>
+<%= f.text_field :email_desc, placeholder: 'Description', label: 'Description',class: 'form-control' %>
 
 </div>
 </div>
@@ -61,18 +81,18 @@
 <div class="col-md-6">
 
 
-<%= f.input :pst_issue, as: :boolean %>
+<%= f.check_box :pst_issue, as: :boolean %>
 
-<%= f.input :pst_desc, placeholder: 'Description', label: 'Description' %>
+<%= f.text_field :pst_desc, placeholder: 'Description', label: 'Description',class: 'form-control' %>
 
 
 </div>
 
 <div class="col-md-6">
 
-<%= f.input :shared_folder_issue, as: :boolean %>
+<%= f.check_box :shared_folder_issue, as: :boolean %>
 
-<%= f.input :shared_folder_desc, placeholder: 'Description', label: 'Description' %>
+<%= f.text_field :shared_folder_desc, placeholder: 'Description', label: 'Description',class: 'form-control' %>
 
 </div>
 </div>
@@ -81,17 +101,17 @@
 <div class="col-md-6">
 
 
-<%= f.input :other_hardware_issue, as: :boolean %>
+<%= f.check_box :other_hardware_issue, as: :boolean %>
 
-<%= f.input :other_hardware_desc, placeholder: 'Description', label: 'Description' %>
+<%= f.text_field :other_hardware_desc, placeholder: 'Description', label: 'Description',class: 'form-control' %>
 
 </div>
 
 <div class="col-md-6">
 
-<%= f.input :air_card_issue, as: :boolean %>
+<%= f.check_box :air_card_issue, as: :boolean %>
 
-<%= f.input :air_card_desc, placeholder: 'Description', label: 'Description' %>
+<%= f.text_field :air_card_desc, placeholder: 'Description', label: 'Description',class: 'form-control' %>
   
 </div>
 </div>
@@ -99,15 +119,15 @@
 <div class="row">
 <div class="col-md-6">
 
-<%= f.input :other_issue, as: :boolean %>
+<%= f.check_box :other_issue, as: :boolean %>
 
-<%= f.input :other_desc, placeholder: 'Description', label: 'Description' %>
+<%= f.text_field :other_desc, placeholder: 'Description', label: 'Description',class: 'form-control' %>
 
 </div>
 </div>
-
-<%= f.button :submit  %>
-
+<div class="actions">
+    <%= f.submit :class => 'btn btn-primary button right' %>
+</div>
 <% end %>
 
 <hr/>
