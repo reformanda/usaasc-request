@@ -82,3 +82,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'poltergeist'
 end
+
+gem 'rails_12factor', group: :production
