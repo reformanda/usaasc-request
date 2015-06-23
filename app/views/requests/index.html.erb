@@ -1,6 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Requests</h1>
+<h2>Listing Requests</h2>
 
 <table>
   <thead>
@@ -9,24 +7,7 @@
       <th>Email</th>
       <th>Phone</th>
       <th>Other phone</th>
-      <th>Laptop issue</th>
-      <th>Laptop desc</th>
-      <th>Software issue</th>
-      <th>Software desc</th>
-      <th>Blackberry issue</th>
-      <th>Blackberry desc</th>
-      <th>Email issue</th>
-      <th>Email desc</th>
-      <th>Pst issue</th>
-      <th>Pst desc</th>
-      <th>Shared folder issue</th>
-      <th>Shared folder desc</th>
-      <th>Other hardware issue</th>
-      <th>Other hardware desc</th>
-      <th>Air card issue</th>
-      <th>Air card desc</th>
-      <th>Other issue</th>
-      <th>Other issue</th>
+      <th>Issue Type</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -38,24 +19,16 @@
         <td><%= request.email %></td>
         <td><%= request.phone %></td>
         <td><%= request.other_phone %></td>
-        <td><%= request.laptop_issue %></td>
-        <td><%= request.laptop_desc %></td>
-        <td><%= request.software_issue %></td>
-        <td><%= request.software_desc %></td>
-        <td><%= request.blackberry_issue %></td>
-        <td><%= request.blackberry_desc %></td>
-        <td><%= request.email_issue %></td>
-        <td><%= request.email_desc %></td>
-        <td><%= request.pst_issue %></td>
-        <td><%= request.pst_desc %></td>
-        <td><%= request.shared_folder_issue %></td>
-        <td><%= request.shared_folder_desc %></td>
-        <td><%= request.other_hardware_issue %></td>
-        <td><%= request.other_hardware_desc %></td>
-        <td><%= request.air_card_issue %></td>
-        <td><%= request.air_card_desc %></td>
-        <td><%= request.other_issue %></td>
-        <td><%= request.other_issue %></td>
+        <td>
+          <%= if request.laptop_issue then 'Laptop' %>
+          <%= if request.software_issue then 'Software' %>
+          <%= if request.blackberry_issue then 'Blackberry' %>
+          <%= if request.email_issue then 'Email' %>
+          <%= if request.pst_issue then 'PST' %>
+          <%= if request.shared_folder_issue then 'Shared Folder' %>
+          <%= if request.other_hardware_issue then 'Other Hardware' %>
+          <%= if request.air_card_issue then 'Air Card'%>
+          <%= if request.other_issue then 'Other'%>
         <td><%= link_to 'Show', request %></td>
         <td><%= link_to 'Edit', edit_request_path(request) %></td>
         <td><%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
