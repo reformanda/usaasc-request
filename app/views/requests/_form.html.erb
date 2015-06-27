@@ -43,19 +43,20 @@
 <hr/>
                 
 <div class="row">
-<div class="col-md-6">
-   
-<%= f.check_box :laptop_issue, as: :boolean %>
+  <div class="checkbox">
+     <%= f.check_box :laptop_issue, class: 'form-control'%>
+     <%= f.label :laptop_issue %>
+  </div>   
+  <div class="form-group col-sm-3">
+     <%= f.label :laptop_desc, 'Description', class: 'sr-only' %>
+     <%= f.text_field :laptop_desc, placeholder: 'Description', label: 'Description', class: 'form-control'%>
+  </div>
 
-<%= f.text_field :laptop_desc, placeholder: 'Description', label: 'Description', class: 'form-control'%>
+  <div class="form-group col-md-6">
+    <%= f.check_box :software_issue, as: :boolean %>
+    <%= f.text_field :software_desc, placeholder: 'Description', label: 'Description', class: 'form-control' %>
+  </div>
 
-</div>
-
-<div class="col-md-6">
-<%= f.check_box :software_issue, as: :boolean %>
-
-<%= f.text_field :software_desc, placeholder: 'Description', label: 'Description', class: 'form-control' %>
-</div>  
 </div>
 
 <div class="row">
