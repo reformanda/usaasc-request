@@ -4,4 +4,5 @@ Rails.application.routes.draw do
   root to: 'landing#index'
   resources :users
   resources :landing
+  post '/requests/:id', to: 'requests#update'
 end

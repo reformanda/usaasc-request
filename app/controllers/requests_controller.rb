@@ -1,14 +1,16 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy]
-
-  add_breadcrumb "Home", :root_path
-  #add_breadcrumb "Requests", :request_index_path
-
+  helper_method :sort_column, :sort_direction
 
   # GET /requests
   # GET /requests.json
   def index
-    @requests = Request.all
+    @sort_column = sort_column
+    if current_user.try(:admin?)
+      @requests = Request.order(params[:sort] + ' ' + params[:direction])
+    else
+      @requests = Request.where("email = ?", current_user.email).order(params[:sort] + ' ' + params[:direction])
+    end
   end
 
   # GET /requests/1
@@ -23,7 +25,6 @@ class RequestsController < ApplicationController
 
   # GET /requests/1/edit
   def edit
-
   end
 
   # POST /requests
@@ -42,6 +43,7 @@ class RequestsController < ApplicationController
     end
   end
 
+  # POST /requests/1
   # PATCH/PUT /requests/1
   # PATCH/PUT /requests/1.json
   def update
@@ -66,14 +68,34 @@ class RequestsController < ApplicationController
     end
   end
 
+
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_request
       @request = Request.find(params[:id])
+      if !show_request
+        redirect_to requests_url, notice: "Request not found."
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
       params.require(:request).permit(:name, :email, :phone, :other_phone, :laptop_issue, :laptop_desc, :software_issue, :software_desc, :blackberry_issue, :blackberry_desc, :email_issue, :email_desc, :pst_issue, :pst_desc, :shared_folder_issue, :shared_folder_desc, :other_hardware_issue, :other_hardware_desc, :air_card_issue, :air_card_desc, :other_issue, :other_issue)
     end
+
+    def show_request
+      current_user.try(:admin?) || @request.email == current_user.email
+    end
+
+    def sort_column
+      Request.column_names.include?(params[:sort]) ? params[:sort] : "name"
+    end
+
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    end
+
+
 end

@@ -1,9 +1,9 @@
-<h2>Listing Requests</h2>
+<h3>Listing Requests</h3>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Name</th>
+      <th><%= sortable "name" %></th>
       <th>Email</th>
       <th>Phone</th>
       <th>Other phone</th>
@@ -13,6 +13,9 @@
   </thead>
 
   <tbody>
+    <% if @requests.count() == 0 %>
+      <tr><td colspan="100"><p>No Requests found: <%= @requests.count() %></p></td></tr>
+    <% else %>
     <% @requests.each do |request| %>
       <tr>
         <td><%= request.name %></td>
@@ -51,6 +54,7 @@
         <td><%= link_to 'Edit', edit_request_path(request) %></td>
         <td><%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+    <% end %>
     <% end %>
   </tbody>
 </table>
