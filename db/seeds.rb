@@ -9,3 +9,7 @@ user = CreateAdminService.new.call
 puts 'CREATED ADMIN USER: ' << user.email
 user2 = CreateNonadminService.new.call
 puts 'CREATED NON-ADMIN USER: ' << user2.email
+user3 = CreateApproverService.new.call
+puts 'CREATED Approver USER: ' << user3.email
+user4 = CreateWorkerService.new.call
+puts 'CREATED Worker USER: ' << user4.email
