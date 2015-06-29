@@ -7,9 +7,9 @@ class RequestsController < ApplicationController
   def index
     @sort_column = sort_column
     if current_user.try(:admin?)
-      @requests = Request.order(params[:sort] + ' ' + params[:direction])
+      @requests = Request.order(sort_column + " " + sort_direction)
     else
-      @requests = Request.where("email = ?", current_user.email).order(params[:sort] + ' ' + params[:direction])
+      @requests = Request.where("email = ?", current_user.email).order(sort_column + " " + sort_direction)
     end
   end
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails usaasc-request: development" uuid="539cb723-76cb-4e72-96a8-18bc8589d1f9">
+      <first-sync>true</first-sync>
+    </data-source>
+    <data-source name="Rails usaasc-request: production" uuid="d8ed1cf4-7872-47bc-a107-3ea890e52778">
+      <first-sync>true</first-sync>
+      <user-name>&lt;%= ENV['DB_USERNAME'] %&gt;</user-name>
+      <user-password>df96df8fdf97df8adfefdfe4dffcdff1df8ddfeedfe8dff5dffadfebdff9dff9dffddfe5dff8dfeedf8ddff7df8adf8fdf94</user-password>
+    </data-source>
+  </component>
+</project>

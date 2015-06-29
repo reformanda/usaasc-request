@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" hash="3377397533">
+    <data-source source="LOCAL" name="Rails usaasc-request: development" uuid="539cb723-76cb-4e72-96a8-18bc8589d1f9">
+      <driver-ref>sqlite.xerial</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/db/development.sqlite3</jdbc-url>
+      <libraries />
+    </data-source>
+    <data-source source="LOCAL" name="Rails usaasc-request: production" uuid="d8ed1cf4-7872-47bc-a107-3ea890e52778">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql:usaasc_request</jdbc-url>
+      <libraries />
+    </data-source>
+  </component>
+</project>
