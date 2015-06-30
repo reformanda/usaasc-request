@@ -7,6 +7,8 @@
       <th>Email</th>
       <th>Phone</th>
       <th>Other phone</th>
+      <th>Status</th>
+      <th>Assigned To</th>
       <th>Issue Type</th>
       <th colspan="3"></th>
     </tr>
@@ -22,6 +24,8 @@
         <td><%= request.email %></td>
         <td><%= request.phone %></td>
         <td><%= request.other_phone %></td>
+        <td><%= request.status %></td>
+        <td><%= request.assigned_to_role %></td>
         <td>
           <% if request.laptop_issue %>
             Laptop

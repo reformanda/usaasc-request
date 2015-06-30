@@ -21,6 +21,10 @@ class RequestsController < ApplicationController
   # GET /requests/new
   def new
     @request = Request.new
+    @request.name = current_user.name
+    @request.email = current_user.email
+    @request.phone = current_user.phone
+    @request.other_phone = current_user.other_phone
   end
 
   # GET /requests/1/edit
@@ -33,6 +37,8 @@ class RequestsController < ApplicationController
     @request = Request.new(request_params)
 
     respond_to do |format|
+      @request.status = :newrequest
+      @request.assigned_to_role = :approver
       if @request.save
         format.html { redirect_to @request, notice: 'Request was successfully created.' }
         format.json { render :show, status: :created, location: @request }

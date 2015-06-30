@@ -7,10 +7,11 @@ class UsersController < ApplicationController
     authorize @users
   end
 
-  def new
-    @user = User.new
-    authorize @user
-  end
+#  def new
+#    @user = User.new
+#    @user.password = '1234567890'
+#    authorize @user
+#  end
 
   def show
     @user = User.find(params[:id])
@@ -25,7 +26,7 @@ class UsersController < ApplicationController
   # POST /requests
   # POST /requests.json
   def create
-    @request = User.new(request_params)
+    @user = User.new(request_params)
 
     respond_to do |format|
       if @user.save
