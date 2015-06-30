@@ -37,11 +37,16 @@ class RequestsController < ApplicationController
     @request = Request.new(request_params)
 
     respond_to do |format|
-      @request.status = :newrequest
-      @request.assigned_to_role = :approver
+
       if @request.save
+
+        @request.status = :newrequest
+        @request.assigned_to_role = :approver
+        RequestMailer.notification_email(@request).deliver_later
+
         format.html { redirect_to @request, notice: 'Request was successfully created.' }
         format.json { render :show, status: :created, location: @request }
+
       else
         format.html { render :new }
         format.json { render json: @request.errors, status: :unprocessable_entity }
@@ -88,7 +93,7 @@ class RequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
-      params.require(:request).permit(:name, :email, :phone, :other_phone, :laptop_issue, :laptop_desc, :software_issue, :software_desc, :blackberry_issue, :blackberry_desc, :email_issue, :email_desc, :pst_issue, :pst_desc, :shared_folder_issue, :shared_folder_desc, :other_hardware_issue, :other_hardware_desc, :air_card_issue, :air_card_desc, :other_issue, :other_issue)
+      params.require(:request).permit(:name, :email, :phone, :other_phone, :laptop_issue, :laptop_desc, :software_issue, :software_desc, :blackberry_issue, :blackberry_desc, :email_issue, :email_desc, :pst_issue, :pst_desc, :shared_folder_issue, :shared_folder_desc, :other_hardware_issue, :other_hardware_desc, :air_card_issue, :air_card_desc, :other_issue, :other_desc)
     end
 
     def show_request
