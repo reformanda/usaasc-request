@@ -73,6 +73,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'rspec-rails'
+  gem 'activerecord-reset-pk-sequence'
 end
 
 group :test do
@@ -83,5 +84,4 @@ group :test do
   gem 'poltergeist'
 end
 
-gem 'activerecord-reset-pk-sequence'
 gem 'rails_12factor', group: :production
