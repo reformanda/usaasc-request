@@ -41,105 +41,27 @@
 
 
 <hr/>
-                
+
+
 <div class="row">
 
-  <div class="form-group col-sm-2">
-     <%= f.label :laptop_issue %>
-     <%= f.check_box :laptop_issue,  class: 'form-control'%>
-  </div>   
-  <div class="form-group col-sm-4">
-     <%= f.label :laptop_desc, 'Description' %>
-     <%= f.text_area :laptop_desc, placeholder: 'Description', class: 'form-control'%>
-  </div>
-
-  <div class="form-group col-sm-2">
-    <%= f.label :software_issue %>
-    <%= f.check_box :software_issue,  class: 'form-control'%>
-  </div>
-  <div class="form-group col-sm-4">
-    <%= f.label :software_desc, 'Description' %>
-    <%= f.text_area :software_desc, placeholder: 'Description', class: 'form-control'%>
+  <div class="form-group col-sm-6">
+    <% for issue in @issues %>
+        <div>
+          <%= check_box_tag "request[issue_ids][]", issue.id, @request.issues.include?(issue) %>
+          <%= issue.title %>
+        </div>
+    <% end %>
   </div>
 
 </div>
 
 <div class="row">
 
-  <div class="form-group col-sm-2">
-    <%= f.label :blackberry_issue %>
-    <%= f.check_box :blackberry_issue,  class: 'form-control'%>
-  </div>
-  <div class="form-group col-sm-4">
-    <%= f.label :blackberry_desc, 'Description' %>
-    <%= f.text_area :blackberry_desc, placeholder: 'Description', class: 'form-control'%>
-  </div>
 
-  <div class="form-group col-sm-2">
-    <%= f.label :email_issue %>
-    <%= f.check_box :email_issue,  class: 'form-control'%>
-  </div>
-  <div class="form-group col-sm-4">
-    <%= f.label :email_desc, 'Description' %>
-    <%= f.text_area :email_desc, placeholder: 'Description', class: 'form-control'%>
-  </div>
-
-</div>
-
-<div class="row">
-
-  <div class="form-group col-sm-2">
-    <%= f.label :pst_issue %>
-    <%= f.check_box :pst_issue,  class: 'form-control'%>
-  </div>
-  <div class="form-group col-sm-4">
-    <%= f.label :pst_desc, 'Description' %>
-    <%= f.text_area :pst_desc, placeholder: 'Description', class: 'form-control'%>
-  </div>
-
-  <div class="form-group col-sm-2">
-    <%= f.label :shared_folder_issue %>
-    <%= f.check_box :shared_folder_issue,  class: 'form-control'%>
-  </div>
-  <div class="form-group col-sm-4">
-    <%= f.label :shared_folder_desc, 'Description' %>
-    <%= f.text_area :shared_folder_desc, placeholder: 'Description', class: 'form-control'%>
-  </div>
-
-</div>
-
-
-<div class="row">
-
-  <div class="form-group col-sm-2">
-    <%= f.label :other_hardware_issue %>
-    <%= f.check_box :other_hardware_issue,  class: 'form-control'%>
-  </div>
-  <div class="form-group col-sm-4">
-    <%= f.label :other_hardware_desc, 'Description' %>
-    <%= f.text_area :other_hardware_desc, placeholder: 'Description', class: 'form-control'%>
-  </div>
-
-  <div class="form-group col-sm-2">
-    <%= f.label :air_card_issue %>
-    <%= f.check_box :air_card_issue,  class: 'form-control'%>
-  </div>
-  <div class="form-group col-sm-4">
-    <%= f.label :air_card_desc, 'Description' %>
-    <%= f.text_area :air_card_desc, placeholder: 'Description', class: 'form-control'%>
-  </div>
-
-</div>
-
-<div class="row">
-
-  <div class="form-group col-sm-2">
-    <%= f.label :other_issue %>
-    <%= f.check_box :other_issue,  class: 'form-control'%>
-  </div>
-  <div class="form-group col-sm-4">
-    <%= f.label :other_desc, 'Description' %>
-    <%= f.text_area :other_desc, placeholder: 'Description', class: 'form-control'%>
+  <div class="form-group col-sm-6">
+    <%= f.label :description, 'Description' %>
+    <%= f.text_area :description, placeholder: 'Description', class: 'form-control'%>
   </div>
 
 </div>

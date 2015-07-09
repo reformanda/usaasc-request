@@ -11,35 +11,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629234500) do
+ActiveRecord::Schema.define(version: 20150709021711) do
+
+  create_table "issues", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "requests", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "phone"
     t.string   "other_phone"
-    t.boolean  "laptop_issue"
-    t.text     "laptop_desc"
-    t.boolean  "software_issue"
-    t.text     "software_desc"
-    t.boolean  "blackberry_issue"
-    t.text     "blackberry_desc"
-    t.boolean  "email_issue"
-    t.text     "email_desc"
-    t.boolean  "pst_issue"
-    t.text     "pst_desc"
-    t.boolean  "shared_folder_issue"
-    t.text     "shared_folder_desc"
-    t.boolean  "other_hardware_issue"
-    t.text     "other_hardware_desc"
-    t.boolean  "air_card_issue"
-    t.text     "air_card_desc"
-    t.text     "other_issue"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.text     "other_desc"
+    t.text     "description"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
     t.integer  "assigned_to_role"
     t.integer  "status"
+  end
+
+  create_table "requests_issues", force: :cascade do |t|
+    t.integer  "request_id"
+    t.integer  "issue_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

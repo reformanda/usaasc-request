@@ -25,21 +25,24 @@ class RequestsController < ApplicationController
     @request.email = current_user.email
     @request.phone = current_user.phone
     @request.other_phone = current_user.other_phone
+    @issues = Issue.all
   end
 
   # GET /requests/1/edit
   def edit
+    @issues = Issue.all
   end
 
   # POST /requests
   # POST /requests.json
   def create
+    params[:request][:issue_ids] ||= []
     @request = Request.new(request_params)
 
     respond_to do |format|
 
       if @request.save
-
+        add_issues_to_request
         @request.status = :newrequest
         @request.assigned_to_role = :approver
         RequestMailer.notification_email(@request).deliver_later
@@ -59,7 +62,10 @@ class RequestsController < ApplicationController
   # PATCH/PUT /requests/1.json
   def update
     respond_to do |format|
+
+      params[:request][:issue_ids] ||= []
       if @request.update(request_params)
+        add_issues_to_request
         format.html { redirect_to @request, notice: 'Request was successfully updated.' }
         format.json { render :show, status: :ok, location: @request }
       else
@@ -93,7 +99,7 @@ class RequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
-      params.require(:request).permit(:name, :email, :phone, :other_phone, :laptop_issue, :laptop_desc, :software_issue, :software_desc, :blackberry_issue, :blackberry_desc, :email_issue, :email_desc, :pst_issue, :pst_desc, :shared_folder_issue, :shared_folder_desc, :other_hardware_issue, :other_hardware_desc, :air_card_issue, :air_card_desc, :other_issue, :other_desc)
+      params.require(:request).permit(:name, :email, :phone, :other_phone, :description)
     end
 
     def show_request
@@ -108,5 +114,9 @@ class RequestsController < ApplicationController
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 
+    def add_issues_to_request
+      issues = Issue.find params[:request][:issue_ids]
+      @request.issues = issues
+    end
 
 end

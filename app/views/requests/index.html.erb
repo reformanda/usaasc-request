@@ -27,33 +27,8 @@
         <td><%= request.status %></td>
         <td><%= request.assigned_to_role %></td>
         <td>
-          <% if request.laptop_issue %>
-            Laptop
-          <% end %>
-          <% if request.software_issue  %>
-          Software
-          <% end %>
-          <% if request.blackberry_issue %>
-          Blackberry
-          <% end %>
-          <% if request.email_issue %>
-          Email
-          <% end %>
-          <% if request.pst_issue  %>
-          PST
-          <% end %>
-          <% if request.shared_folder_issue  %>
-          Shared Folder
-          <% end %>
-          <% if request.other_hardware_issue %>
-          Other Hardware
-          <% end %>
-          <% if request.air_card_issue %>
-          Air Card
-          <% end %>
-          <% if request.other_issue %>
-          Other
-          <% end %>
+
+        </td>
         <td><%= link_to 'Show', request %></td>
         <td><%= link_to 'Edit', edit_request_path(request) %></td>
         <td><%= link_to 'Destroy', request, method: :delete, data: { confirm: 'Are you sure?' } %></td>
