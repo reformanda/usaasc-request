@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
-ruby '2.2.2'
+ruby '2.1.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', :group => [:development, :test]
-gem 'pg', :group => :production
+gem 'sqlite3', :group => [:development, :test, :production]
+#gem 'pg', :group => :production
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -54,8 +54,10 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'devise_invitable'
 gem 'pundit'
-gem 'unicorn'
-gem 'unicorn-rails'
+#gem 'unicorn'
+#gem 'unicorn-rails'
+gem 'thin'
+gem 'tzinfo-data', platforms: [:x64_mingw, :mingw, :mswin]
 
 group :development do
   gem 'rubycritic', require: false	
