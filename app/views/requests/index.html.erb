@@ -1,4 +1,12 @@
 <h3>Listing Requests</h3>
+
+
+<% if current_user.worker? %>
+
+  <%= link_to 'Show All', {controller: 'requests', action: 'index'}  %> |
+  <%= link_to 'Approved Only', {controller: 'requests', action: 'index', :by_status => 1}  %>
+<% end %>
+
 <table class="table">
   <thead>
     <tr>
@@ -50,7 +58,9 @@
 
         <% elsif current_user.worker? %>
           <td><%= link_to 'Show', request %></td>
+          <% if request.approved? %>
           <td><%= link_to 'Edit', edit_request_path(request) %></td>
+          <% end %>
 
         <% else %>
           <td><%= link_to 'Show', request %></td>

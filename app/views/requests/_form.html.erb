@@ -77,7 +77,7 @@
   <%= hidden_field(:request, :issue_ids) %>
 
   <div class="row">
-      <div class="form-group col-sm-6">
+    <div class="form-group col-sm-6">
     <label for="status">Status:</label>
     <% [ 'approved', 'disapproved' ].each do |status| %>
       <br><%= radio_button_tag 'status', status, @status == status %>
@@ -90,7 +90,16 @@
 
 <% if current_user.worker?  %>
   <%= hidden_field(:request, :issue_ids) %>
+  <div class="row">
+    <div class="form-group col-sm-6">
+    <label for="status">Status:</label>
+    <% [ 'completed', 'approved' ].each do |status| %>
+      <br><%= radio_button_tag 'status', status, @status == status %>
+      <%= status.humanize %>
+    <% end %>
 
+      </div>
+  </div>
 
 <% end %>
 

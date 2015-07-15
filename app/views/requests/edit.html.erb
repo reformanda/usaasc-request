@@ -1,8 +1,12 @@
 <% if current_user.approver? %>
 <h1>Approving/Disapproving Request</h1>
+
 <% else %>
 <h1>Editing Request</h1>
 <% end %>
+
+
+
 <%= render 'form' %>
 
 <%= link_to 'Show', @request %> |

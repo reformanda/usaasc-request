@@ -1,6 +1,7 @@
 class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
+  has_scope :by_status
 
   # GET /requests
   # GET /requests.json
@@ -13,6 +14,7 @@ class RequestsController < ApplicationController
       # show only requests for this user
       @requests = Request.where("email = ?", current_user.email).order(sort_column + " " + sort_direction)
     end
+    @requests = apply_scopes(Request).all
     @issues = Issue.all
   end
 
@@ -71,7 +73,12 @@ class RequestsController < ApplicationController
       params[:request][:issue_ids] ||= []
       if @request.update(request_params)
         if current_user.worker?
-          
+          if params[:status] == "approved"
+            @request.approved!
+          elsif params[:status] == "completed"
+            @request.completed!
+            @request.requester!
+          end          
         elsif current_user.approver?
           if params[:status] == "approved"
             @request.approved!
@@ -80,6 +87,8 @@ class RequestsController < ApplicationController
             @request.disapproved!
             @request.requester!
           end
+        
+          
         else
            add_issues_to_request 
         end

@@ -86,4 +86,6 @@ group :test do
   gem 'poltergeist'
 end
 
+gem 'has_scope'
+
 gem 'rails_12factor', group: :production
