@@ -16,26 +16,26 @@
   <div class="row">
     <div class=" form-group col-sm-6">
       <%= f.label :name %>
-      <%= f.text_field :name, autofocus: true, class: 'form-control readonly'%>
+      <%= f.text_field :name, autofocus: true, class: 'form-control', disabled: true%>
     </div>
   </div> 
 
   <div class="row">
     <div class=" form-group col-sm-6">
       <%= f.label :email %>
-      <%= f.email_field :email, autofocus: true, class: 'form-control'%>
+      <%= f.email_field :email, autofocus: true, class: 'form-control', disabled: current_user.approver?  %>
     </div>
   </div>
 
   <div class="row">
     <div class=" form-group col-sm-3">
       <%= f.label :phone %>
-      <%= f.text_field :phone, autofocus: true, class: 'form-control'%>
+      <%= f.text_field :phone, autofocus: true, class: 'form-control', disabled: current_user.approver? %>
     </div>
 
     <div class=" form-group col-sm-3">
       <%= f.label :other_phone, 'Blackberry' %>
-      <%= f.text_field :other_phone, autofocus: true, class: 'form-control'%>
+      <%= f.text_field :other_phone, autofocus: true, class: 'form-control', disabled: current_user.approver? %>
     </div>
   </div>
 
@@ -48,7 +48,7 @@
 
   <div class="form-group col-sm-6">
     <%= f.label :description, 'Description' %>
-    <%= f.text_area :description, placeholder: 'Description', class: 'form-control'%>
+    <%= f.text_area :description, placeholder: 'Description', class: 'form-control', disabled: current_user.approver? %>
   </div>
 
 </div>
@@ -63,7 +63,7 @@
   <div class="panel-body">
     <% for issue in @issues %>
         <div>
-          <%= check_box_tag "request[issue_ids][]", issue.id, @request.issues.include?(issue) %>
+          <%= check_box_tag "request[issue_ids][]", issue.id, @request.issues.include?(issue), disabled: current_user.approver?  %>
           <%= issue.title %>
         </div>
     <% end %>
@@ -73,7 +73,18 @@
 
 </div>
 
+<% if current_user.approver?  %>
+  <div class="row">
+      <div class="form-group col-sm-6">
+    <label for="status">Status:</label>
+    <% [ 'approved', 'disapproved' ].each do |status| %>
+      <br><%= radio_button_tag 'status', status, @status == status %>
+      <%= status.humanize %>
+    <% end %>
 
+      </div>
+  </div>
+<% end %>
 
 <div class="actions">
     <%= f.submit :class => 'btn btn-primary button right' %>

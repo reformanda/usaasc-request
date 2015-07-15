@@ -6,16 +6,20 @@ class RequestsController < ApplicationController
   # GET /requests.json
   def index
     @sort_column = sort_column
-    if current_user.try(:admin?)
+    if current_user.try(:admin?) || current_user.approver?
+      # show all requests
       @requests = Request.order(sort_column + " " + sort_direction)
     else
+      # show only requests for this user
       @requests = Request.where("email = ?", current_user.email).order(sort_column + " " + sort_direction)
     end
+    @issues = Issue.all
   end
 
   # GET /requests/1
   # GET /requests/1.json
   def show
+
   end
 
   # GET /requests/new
@@ -43,8 +47,8 @@ class RequestsController < ApplicationController
 
       if @request.save
         add_issues_to_request
-        @request.status = :newrequest
-        @request.assigned_to_role = :approver
+        @request.newrequest!
+        @request.approver!
         RequestMailer.notification_email(@request).deliver_later
 
         format.html { redirect_to @request, notice: 'Request was successfully created.' }
@@ -103,7 +107,7 @@ class RequestsController < ApplicationController
     end
 
     def show_request
-      current_user.try(:admin?) || @request.email == current_user.email
+      current_user.try(:admin?) || current_user.approver? || @request.email == current_user.email
     end
 
     def sort_column

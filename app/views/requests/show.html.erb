@@ -27,5 +27,7 @@
   <%= @request.description %>
 </p>
 
+<% if current_user.try(:admin?) %>
 <%= link_to 'Edit', edit_request_path(@request) %> |
+<% end %>
 <%= link_to 'Back', requests_path %>
