@@ -74,6 +74,8 @@
 </div>
 
 <% if current_user.approver?  %>
+  <%= hidden_field(:request, :issue_ids) %>
+
   <div class="row">
       <div class="form-group col-sm-6">
     <label for="status">Status:</label>
