@@ -35,6 +35,7 @@ class RequestsController < ApplicationController
   # GET /requests/1/edit
   def edit
     @issues = Issue.all
+    @disable_fields = current_user.approver? || current_user.worker?
   end
 
   # POST /requests
@@ -69,9 +70,9 @@ class RequestsController < ApplicationController
 
       params[:request][:issue_ids] ||= []
       if @request.update(request_params)
-        if !current_user.approver?
-          add_issues_to_request
-        else
+        if current_user.worker?
+          
+        elsif current_user.approver?
           if params[:status] == "approved"
             @request.approved!
             @request.worker!
@@ -79,7 +80,8 @@ class RequestsController < ApplicationController
             @request.disapproved!
             @request.requester!
           end
-            
+        else
+           add_issues_to_request 
         end
         format.html { redirect_to @request, notice: 'Request was successfully updated.' }
         format.json { render :show, status: :ok, location: @request }

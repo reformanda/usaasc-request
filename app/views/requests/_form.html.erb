@@ -23,19 +23,19 @@
   <div class="row">
     <div class=" form-group col-sm-6">
       <%= f.label :email %>
-      <%= f.email_field :email, autofocus: true, class: 'form-control', disabled: current_user.approver?  %>
+      <%= f.email_field :email, autofocus: true, class: 'form-control', disabled: @disable_fields  %>
     </div>
   </div>
 
   <div class="row">
     <div class=" form-group col-sm-3">
       <%= f.label :phone %>
-      <%= f.text_field :phone, autofocus: true, class: 'form-control', disabled: current_user.approver? %>
+      <%= f.text_field :phone, autofocus: true, class: 'form-control', disabled: @disable_fields %>
     </div>
 
     <div class=" form-group col-sm-3">
       <%= f.label :other_phone, 'Blackberry' %>
-      <%= f.text_field :other_phone, autofocus: true, class: 'form-control', disabled: current_user.approver? %>
+      <%= f.text_field :other_phone, autofocus: true, class: 'form-control', disabled: @disable_fields %>
     </div>
   </div>
 
@@ -48,7 +48,7 @@
 
   <div class="form-group col-sm-6">
     <%= f.label :description, 'Description' %>
-    <%= f.text_area :description, placeholder: 'Description', class: 'form-control', disabled: current_user.approver? %>
+    <%= f.text_area :description, placeholder: 'Description', class: 'form-control', disabled: @disable_fields %>
   </div>
 
 </div>
@@ -63,7 +63,7 @@
   <div class="panel-body">
     <% for issue in @issues %>
         <div>
-          <%= check_box_tag "request[issue_ids][]", issue.id, @request.issues.include?(issue), disabled: current_user.approver?  %>
+          <%= check_box_tag "request[issue_ids][]", issue.id, @request.issues.include?(issue), disabled: @disable_fields  %>
           <%= issue.title %>
         </div>
     <% end %>
@@ -86,6 +86,12 @@
 
       </div>
   </div>
+<% end %>
+
+<% if current_user.worker?  %>
+  <%= hidden_field(:request, :issue_ids) %>
+
+
 <% end %>
 
 <div class="actions">
