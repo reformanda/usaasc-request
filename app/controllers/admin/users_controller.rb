@@ -1,6 +1,6 @@
 class Admin::UsersController < ApplicationController  
   before_action :authenticate_user!
-#  after_action :verify_authorized
+  #after_action :verify_authorized
 
   def index
     @users = User.all
@@ -10,7 +10,6 @@ class Admin::UsersController < ApplicationController
   def new
     @user = User.new
 
-    
   end
 
   def show
@@ -20,6 +19,7 @@ class Admin::UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+    @roles = [:user, :approver, :worker, :admin]
     #authorize @user
   end
 
@@ -27,10 +27,8 @@ class Admin::UsersController < ApplicationController
   # POST /requests.json
   def create
 
-
     params[:user][:password] = '12345678'
   
-
     @user = User.new(secure_params)    
 
     respond_to do |format|
