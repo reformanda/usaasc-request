@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717035239) do
+ActiveRecord::Schema.define(version: 20150722031028) do
 
   create_table "issues", force: :cascade do |t|
     t.string   "title"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20150717035239) do
     t.datetime "updated_at",       null: false
     t.integer  "assigned_to_role"
     t.integer  "status"
+    t.string   "subject"
+    t.integer  "priority"
   end
 
   create_table "requests_issues", force: :cascade do |t|

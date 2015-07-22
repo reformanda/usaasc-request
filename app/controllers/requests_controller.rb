@@ -44,6 +44,8 @@ class RequestsController < ApplicationController
   # POST /requests.json
   def create
     params[:request][:issue_ids] ||= []
+    params[:request][:email] ||= current_user.email
+    params[:request][:name] ||= current_user.first_name + " " + current_user.last_name
     @request = Request.new(request_params)
 
     respond_to do |format|
@@ -52,6 +54,7 @@ class RequestsController < ApplicationController
         add_issues_to_request
         @request.newrequest!
         @request.approver!
+
         RequestMailer.notification_email(@request).deliver_later
 
         format.html { redirect_to @request, notice: 'Request was successfully created.' }
@@ -125,7 +128,7 @@ class RequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
-      params.require(:request).permit(:name, :email, :phone, :other_phone, :description)
+      params.require(:request).permit(:name, :email, :phone, :other_phone, :description, :subject)
     end
 
     def show_request

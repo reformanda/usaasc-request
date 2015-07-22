@@ -18,9 +18,11 @@ class Admin::UsersController < ApplicationController
   end
 
   def edit
+  
     @user = User.find(params[:id])
-    @roles = [:user, :approver, :worker, :admin]
+    @roles = [ 1 => 'user', 2 =>'approver', 3 => 'worker', 4 => 'admin']    
     #authorize @user
+  
   end
 
   # POST /requests
