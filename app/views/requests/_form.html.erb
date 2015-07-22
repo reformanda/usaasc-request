@@ -57,35 +57,21 @@
 
 </div>
 
-<% if current_user.approver?  %>
+<% if current_user.approver? || current_user.worker? || current_user.admin? %>
   <%= hidden_field(:request, :issue_ids) %>
-
+  
   <div class="row">
     <div class="form-group col-sm-6">
-    <label for="status">Status:</label>
-    <% [ 'approved', 'disapproved' ].each do |status| %>
-      <br><%= radio_button_tag 'status', status, @status == status %>
-      <%= status.humanize %>
-    <% end %>
 
-      </div>
+      <%= f.label :status, 'Status' %>
+      <br/>
+      <%= f.select :status, options_for_select([["Select One", ""], "newrequest", "approved", "disapproved", "completed", "closed", "canceled"], :selected => @request.status), :class => 'form-control' %>
+      
+    </div>
   </div>
 <% end %>
 
-<% if current_user.worker?  %>
-  <%= hidden_field(:request, :issue_ids) %>
-  <div class="row">
-    <div class="form-group col-sm-6">
-    <label for="status">Status:</label>
-    <% [ 'completed', 'approved' ].each do |status| %>
-      <br><%= radio_button_tag 'status', status, @status == status %>
-      <%= status.humanize %>
-    <% end %>
 
-      </div>
-  </div>
-
-<% end %>
 
 <div class="actions">
     <%= f.submit :class => 'btn btn-primary button right' %>
