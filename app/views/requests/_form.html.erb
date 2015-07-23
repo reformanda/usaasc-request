@@ -47,8 +47,9 @@
   <div class="panel-body">
     <% for issue in @issues %>
         <div>
-          <%= check_box_tag "request[issue_ids][]", issue.id, @request.issues.include?(issue), disabled: @disable_fields  %>
-          <%= issue.title %>
+          <%= check_box_tag "request[issue_ids][]", issue.id, @request.issues.include?(issue), disabled: @disable_fields, :id => "request_issue_ids__#{issue.id}"  %>
+        
+          <%= label_tag "request_issue_ids__#{issue.id}", issue.title %>
         </div>
     <% end %>
   </div>
@@ -58,7 +59,6 @@
 </div>
 
 <% if current_user.approver? || current_user.worker? || current_user.admin? %>
-  <%= hidden_field(:request, :issue_ids) %>
   
   <div class="row">
     <div class="form-group col-sm-6">
@@ -71,10 +71,37 @@
   </div>
 <% end %>
 
+<div class="row">
+
+  <div class="form-group col-sm-6">
+    <%= f.label :comment, 'Comment' %>
+    <%= f.text_field :comment, placeholder: 'Comment', class: 'form-control', disabled: @disable_fields %>
+  </div>
+
+</div>
+
+
+<% @comments.each do |p| %>
+
+    <div class="row">
+
+      <div class="form-group col-sm-6">
+        <div class='form-control'>
+          <%= p.comment %>
+        </div>  
+      </div>
+
+    </div>
+
+<% end %>
 
 
 <div class="actions">
     <%= f.submit :class => 'btn btn-primary button right' %>
+    <% if current_user.admin? && !f.object.new_record? %>
+      &nbsp;<%= button_to "Delete", {:controller => :requests,
+        :action => 'destroy', :id => @request.id }, :method => :delete, :class => 'btn' %>
+    <% end %>
 </div>
 
 <% end %>

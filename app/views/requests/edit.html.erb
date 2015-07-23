@@ -7,6 +7,130 @@
 
 
 
-<%= render 'form' %>
+
+<%= form_for(@request, html: { role: 'form', method: :patch }) do |f| %>
+  <% if @request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@request.errors.count, "error") %> prohibited this request from being saved:</h2>
+
+      <ul>
+      <% @request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+
+<hr/>
+
+
+<div class="row">
+
+
+  <div class="form-group col-sm-6">
+    <label>Last Updated</label><br/>
+    <%= localize(@request.updated_at, :format => :long) %>
+  </div>
+
+</div>
+
+<div class="row">
+
+
+  <div class="form-group col-sm-6">
+    <%= f.label :subject, 'Subject' %>
+    <%= f.text_field :subject, placeholder: 'Subject', class: 'form-control', disabled: @disable_fields %>
+  </div>
+
+</div>
+
+<div class="row">
+
+
+  <div class="form-group col-sm-6">
+    <%= f.label :description, 'Description' %>
+    <%= f.text_area :description, placeholder: 'Description', class: 'form-control', disabled: @disable_fields %>
+  </div>
+
+</div>
+
+<div class="row">
+  
+
+<div class="form-group col-sm-3">
+<label>Issues</label>
+<div class="panel panel-default ">
+
+  <div class="panel-body">
+    <% for issue in @issues %>
+        <div>
+          <%= check_box_tag "request[issue_ids][]", issue.id, @request.issues.include?(issue), disabled: @disable_fields, :id => "request_issue_ids__#{issue.id}"  %>
+        
+          <%= label_tag "request_issue_ids__#{issue.id}", issue.title %>
+        </div>
+    <% end %>
+  </div>
+</div>
+</div>
+
+</div>
+
+<% if current_user.approver? || current_user.worker? || current_user.admin? %>
+  
+  <div class="row">
+    <div class="form-group col-sm-6">
+
+      <%= f.label :status, 'Status' %>
+      <br/>
+      <%= f.select :status, options_for_select([["Select One", ""], "newrequest", "approved", "disapproved", "completed", "closed", "canceled"], :selected => @request.status), :class => 'form-control' %>
+      
+    </div>
+  </div>
+<% end %>
+
+<div class="row">
+
+  <div class="form-group col-sm-6">
+    <%= f.label :comment, 'Comment' %>
+    <%= f.text_field :comment, placeholder: 'Comment', class: 'form-control', disabled: @disable_fields %>
+  </div>
+
+</div>
+
+
+<% @comments.each do |p| %>
+<%= @comments.count %>
+    <div class="row">
+
+      <div class="form-group col-sm-6">
+        <div class='form-control'>
+          <%= p.comment %>
+        </div>  
+      </div>
+
+    </div>
+
+<% end %>
+
+
+<div class="actions">
+    <%= f.submit :class => 'btn btn-primary button right' %>
+
+</div>
+
+<% end %>
+
+    <% if current_user.admin? && !@request.new_record? %>
+      &nbsp;<%= button_to "Delete", {:controller => :requests,
+        :action => 'destroy', :id => @request.id }, :method => :delete, :class => 'btn' %>
+    <% end %>
+
+<hr/>
+
+
+
 
 <%= link_to 'Back', requests_path %>

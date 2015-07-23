@@ -31,12 +31,19 @@ class RequestsController < ApplicationController
     @request.email = current_user.email
     @request.phone = current_user.phone
     @request.other_phone = current_user.other_phone
+
+    #commentable = Post.find(1)
+    @request.comment = ''    
+
+    @comments = @request.comments.recent.limit(10).all
+
     @issues = Issue.all
   end
 
   # GET /requests/1/edit
   def edit
     @issues = Issue.all
+    @comments = @request.comments.recent.limit(10).all
     @disable_fields = current_user.approver? || current_user.worker?
   end
 
@@ -45,8 +52,9 @@ class RequestsController < ApplicationController
   def create
     params[:request][:issue_ids] ||= []
     params[:request][:email] ||= current_user.email
-    params[:request][:name] ||= current_user.first_name + " " + current_user.last_name
+    params[:request][:name] ||= current_user.name
     @request = Request.new(request_params)
+
 
     respond_to do |format|
 
@@ -54,6 +62,12 @@ class RequestsController < ApplicationController
         add_issues_to_request
         @request.newrequest!
         @request.approver!
+
+        if !params[:request][:comment].empty?
+          comment = @request.comments.create
+          comment.comment = params[:request][:comment]
+          comment.save
+        end
 
         RequestMailer.notification_email(@request).deliver_later
 
@@ -75,6 +89,12 @@ class RequestsController < ApplicationController
 
       params[:request][:issue_ids] ||= []
       if @request.update(request_params)
+
+        # save new comments
+        comment = @request.comments.create
+        comment.comment = params[:request][:comment]
+        comment.save
+        
         if current_user.worker?
           if params[:status] == "approved"
             @request.approved!
@@ -136,11 +156,11 @@ class RequestsController < ApplicationController
     end
 
     def sort_column
-      Request.column_names.include?(params[:sort]) ? params[:sort] : "name"
+      Request.column_names.include?(params[:sort]) ? params[:sort] : "updated_at"
     end
 
     def sort_direction
-      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
     end
 
     def add_issues_to_request
