@@ -66,6 +66,7 @@ class RequestsController < ApplicationController
         if !params[:request][:comment].empty?
           comment = @request.comments.create
           comment.comment = params[:request][:comment]
+          comment.user_id = current_user.id
           comment.save
         end
 
@@ -93,6 +94,7 @@ class RequestsController < ApplicationController
         # save new comments
         comment = @request.comments.create
         comment.comment = params[:request][:comment]
+        comment.user_id = current_user.id
         comment.save
         
         if current_user.worker?
