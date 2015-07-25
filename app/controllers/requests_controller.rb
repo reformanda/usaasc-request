@@ -7,14 +7,16 @@ class RequestsController < ApplicationController
   # GET /requests.json
   def index
     @sort_column = sort_column
+    @requests = apply_scopes(Request).all
+
     if current_user.try(:admin?) || current_user.approver? || current_user.worker?
       # show all requests
-      @requests = Request.order(sort_column + " " + sort_direction)
+      @requests = @requests.order(sort_column + " " + sort_direction)
     else
       # show only requests for this user
-      @requests = Request.where("email = ?", current_user.email).order(sort_column + " " + sort_direction)
+      @requests = @requests.where("email = ?", current_user.email).order(sort_column + " " + sort_direction)
     end
-    @requests = apply_scopes(Request).all
+
     @issues = Issue.all
   end
 
@@ -92,10 +94,14 @@ class RequestsController < ApplicationController
       if @request.update(request_params)
 
         # save new comments
-        comment = @request.comments.create
-        comment.comment = params[:request][:comment]
-        comment.user_id = current_user.id
-        comment.save
+        if params[:request][:comment] != nil
+          comment = @request.comments.create
+          comment.comment = params[:request][:comment]
+          comment.user_id = current_user.id
+          comment.save
+          # make sure updated_at gets updated
+          @request.touch
+        end
         
         if current_user.worker?
           if params[:status] == "approved"

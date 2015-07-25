@@ -32,7 +32,7 @@
     <% else %>
     <% @requests.each do |request| %>
       <tr class='clickable-row'  data-href="<%= edit_request_path(request) %>" style="cursor:pointer">
-        <td>  <%= localize(request.updated_at, :format => :long) %></th>
+        <td>  <%= request.updated_at.strftime("%m/%d/%Y")%>  <br/> <small><%=  request.updated_at.strftime("%I:%M%p") %>&nbsp;EST</small></th>
         <td><%= request.name %></td>
         <td><%= request.subject %>
             <br/>

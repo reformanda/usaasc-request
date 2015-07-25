@@ -39,7 +39,7 @@ Rails.application.configure do
     password: ENV["EMAIL_PROVIDER_PASSWORD"]
   }
   # ActionMailer Config
-  config.action_mailer.default_url_options = { host: 'helpdesk-testing.usaasconesource.info' }
+  config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.raise_delivery_errors = true
   # Send email in development mode?
