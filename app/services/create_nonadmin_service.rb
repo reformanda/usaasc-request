@@ -5,7 +5,7 @@ class CreateNonadminService
       user.password_confirmation = Rails.application.secrets.nonadmin_password
       user.name = Rails.application.secrets.nonadmin_name
       user.confirm!
-
+      user.user!
     end
   end
 end

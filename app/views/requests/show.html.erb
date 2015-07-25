@@ -41,9 +41,15 @@
 </p>
 
 <p>
-  <strong>Descripton:</strong>
-  <%= @request.description %>
+  <strong>New Comment:</strong>
+  <%= @comment  %>
 </p>
+
+<p>
+  <strong>Assigned To:</strong>
+  <%= @request.assigned_to_role %>
+</p>
+
 
 <% if current_user.try(:admin?) %>
 <%= link_to 'Edit', edit_request_path(@request) %> |

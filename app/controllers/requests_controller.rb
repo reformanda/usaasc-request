@@ -24,6 +24,12 @@ class RequestsController < ApplicationController
   # GET /requests/1.json
   def show
     @issues = Issue.all
+    @comments = @request.comments.recent.limit(1).all.first
+    if @comments.nil?
+      @comment = ''
+    else
+      @comment = @comments.comment
+    end
   end
 
   # GET /requests/new
@@ -44,6 +50,10 @@ class RequestsController < ApplicationController
 
   # GET /requests/1/edit
   def edit
+
+    if current_user.user? &&  !@request.newrequest?
+      redirect_to @request, notice: 'Request cannot be updated.' 
+    end
     @issues = Issue.all
     @comments = @request.comments.recent.limit(10).all
     @disable_fields = current_user.approver? || current_user.worker?
@@ -84,7 +94,7 @@ class RequestsController < ApplicationController
     end
   end
 
-  # POST /requests/1
+
   # PATCH/PUT /requests/1
   # PATCH/PUT /requests/1.json
   def update
@@ -111,6 +121,7 @@ class RequestsController < ApplicationController
             @request.requester!
           end          
         elsif current_user.approver?
+          p params[:status]
           if params[:status] == "approved"
             @request.approved!
             @request.worker!
@@ -156,11 +167,11 @@ class RequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
-      params.require(:request).permit(:name, :email, :phone, :other_phone, :description, :subject)
+      params.require(:request).permit(:name, :email, :phone, :other_phone, :description, :subject, :status)
     end
 
     def show_request
-      current_user.try(:admin?) || current_user.approver? || current_user.worker? || @request.email == current_user.email
+      current_user.try(:admin?) || current_user.try(:approver?) || current_user.try(:worker?) || @request.email == current_user.email
     end
 
     def sort_column

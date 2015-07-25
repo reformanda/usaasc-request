@@ -1,11 +1,5 @@
-<% if current_user.approver? %>
-<h1>Approving/Disapproving Request</h1>
 
-<% else %>
 <h1>Editing Request</h1>
-<% end %>
-
-
 
 
 <%= form_for(@request, html: { role: 'form', method: :patch }) do |f| %>
@@ -95,7 +89,7 @@
 
   <div class="form-group col-sm-6">
     <%= f.label :comment, 'Comments' %>
-    <%= f.text_field :comment, placeholder: 'Enter new comments', class: 'form-control', disabled: @disable_fields %>
+    <%= f.text_field :comment, placeholder: 'Enter new comments', class: 'form-control' %>
   </div>
 
 </div>
