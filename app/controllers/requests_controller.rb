@@ -24,12 +24,7 @@ class RequestsController < ApplicationController
   # GET /requests/1.json
   def show
     @issues = Issue.all
-    @comments = @request.comments.recent.limit(1).all.first
-    if @comments.nil?
-      @comment = ''
-    else
-      @comment = @comments.comment
-    end
+    @comments = @request.comments.recent.limit(10).all
   end
 
   # GET /requests/new
@@ -54,6 +49,11 @@ class RequestsController < ApplicationController
     if current_user.user? &&  !@request.newrequest?
       redirect_to @request, notice: 'Request cannot be updated.' 
     end
+
+    if current_user.worker? &&  !@request.approved?
+      redirect_to @request, notice: 'Request cannot be updated until approved.' 
+    end
+
     @issues = Issue.all
     @comments = @request.comments.recent.limit(10).all
     @disable_fields = current_user.approver? || current_user.worker?

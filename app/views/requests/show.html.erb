@@ -1,6 +1,16 @@
 
 
 <p>
+  <strong>Created:</strong>
+  <%= @request.created_at.strftime("%m/%d/%Y")%>  <small><%=  @request.created_at.strftime("%I:%M%p") %>&nbsp;EST</small>
+</p>
+
+<p>
+  <strong>Last Updated:</strong>
+  <%= @request.updated_at.strftime("%m/%d/%Y")%>   <small><%=  @request.updated_at.strftime("%I:%M%p") %>&nbsp;EST</small>
+</p>
+
+<p>
   <strong>Name:</strong>
   <%= @request.name %>
 </p>
@@ -31,7 +41,17 @@
 </p>
 
 <p>
-  <strong>Issue:</strong>
+  <strong>Subject:</strong>
+  <%= @request.subject %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @request.description %>
+</p>
+
+<p>
+  <strong>Issue(s):</strong>
 
     <% for issue in @issues %>
  
@@ -41,8 +61,25 @@
 </p>
 
 <p>
-  <strong>New Comment:</strong>
-  <%= @comment  %>
+  <strong>Comments:</strong>
+<% if @comments.count > 1 %>
+<% @comments.each do |p| %>
+    <div class="row">
+
+      <div class="form-group col-sm-6">
+        &nbsp;&nbsp;
+         <small><%= localize(p.created_at, :format => :long) %> &nbsp;&nbsp; <%= p.user.name if p.user != nil %></small>
+        
+        <div style="margin-left:30px;">
+         <%= p.comment %>
+        </div>
+         
+      </div>
+
+    </div>
+
+<% end %>
+<% end %>
 </p>
 
 <p>
