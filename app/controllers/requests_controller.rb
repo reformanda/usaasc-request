@@ -16,7 +16,9 @@ class RequestsController < ApplicationController
       # show only requests for this user
       @requests = @requests.where("email = ?", current_user.email).order(sort_column + " " + sort_direction)
     end
-
+    # pagination
+    @requests = @requests.paginate(:page => params[:page], :per_page => 10)
+    
     @issues = Issue.all
   end
 
@@ -121,16 +123,13 @@ class RequestsController < ApplicationController
             @request.requester!
           end          
         elsif current_user.approver?
-          p params[:status]
           if params[:status] == "approved"
             @request.approved!
             @request.worker!
           elsif params[:status] == "disapproved"
             @request.disapproved!
             @request.requester!
-          end
-        
-          
+          end          
         else
            add_issues_to_request 
         end

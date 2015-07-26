@@ -91,3 +91,5 @@ gem 'has_scope'
 gem 'rails_12factor', group: :production
 
 gem 'acts_as_commentable'
+
+gem 'will_paginate-bootstrap'
