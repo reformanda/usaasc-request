@@ -2,15 +2,11 @@
 
 
 <% if current_user.worker? || current_user.approver? || current_user.admin? %>
-<ul class="nav nav-pills" role="tablist">
-  <li role="presentation" class="<%= 'active' if params[:by_status].nil? %>"> <%= link_to 'Show All', {controller: 'requests', action: 'index'} %> </li>
-  
-  
-  <li role="presentation" class="<%= 'active' if params[:by_status] == '0' %>"> <%= link_to 'New Only', {controller: 'requests', action: 'index', :by_status => 0}  %> </li>
-  
-
-  <li role="presentation" class="<%= 'active' if params[:by_status] == '1' %>"> <%= link_to 'Approved Only', {controller: 'requests', action: 'index', :by_status => 1}  %> </li>
-</ul>
+  <ul class="nav nav-pills" role="tablist">
+    <li role="presentation" class="<%= 'active' if params[:by_status].nil? %>"> <%= link_to 'Show All', {controller: 'requests', action: 'index'} %> </li>
+    <li role="presentation" class="<%= 'active' if params[:by_status] == '0' %>"> <%= link_to 'New Only', {controller: 'requests', action: 'index', :by_status => 0}  %> </li>
+    <li role="presentation" class="<%= 'active' if params[:by_status] == '1' %>"> <%= link_to 'Approved Only', {controller: 'requests', action: 'index', :by_status => 1}  %> </li>
+  </ul>
 <% end %>
 
 <table class="table table-hover">
@@ -37,29 +33,24 @@
     <% if @requests.count() == 0 %>
       <tr><td colspan="100"><p>No Requests found: <%= @requests.count() %></p></td></tr>
     <% else %>
-    <% @requests.each do |request| %>
-      <tr class='clickable-row'  data-href="<%= edit_request_path(request) %>" style="cursor:pointer">
-        <td>  <%= request.created_at.strftime("%m/%d/%Y")%>  <br/> <small><%=  request.created_at.strftime("%I:%M%p") %>&nbsp;EST</small></th>
-        <td>  <%= request.updated_at.strftime("%m/%d/%Y")%>  <br/> <small><%=  request.updated_at.strftime("%I:%M%p") %>&nbsp;EST</small></th>
-        <td><%= request.name %></td>
-        <td><b><%= request.subject %></b>
-            <br/>
-            <small><%= request.description %></small>
-        </td>
-        <td><%= request.status %></td>
-        <td><%= request.assigned_to_role %></td>
-        <td>
-    <% for issue in @issues %>
- 
-          <%= issue.title if request.issues.include?(issue)  %>
-
-    <% end %>
-        </td>
-       
-        
-
-      </tr>
-    <% end %>
+      <% @requests.each do |request| %>
+        <tr class='clickable-row'  data-href="<%= edit_request_path(request) %>" style="cursor:pointer">
+          <td>  <%= request.created_at.strftime("%m/%d/%Y")%>  <br/> <small><%=  request.created_at.strftime("%I:%M%p") %>&nbsp;EST</small></th>
+          <td>  <%= request.updated_at.strftime("%m/%d/%Y")%>  <br/> <small><%=  request.updated_at.strftime("%I:%M%p") %>&nbsp;EST</small></th>
+          <td><%= request.name %></td>
+          <td><b><%= request.subject %></b>
+              <br/>
+              <small><%= request.description %></small>
+          </td>
+          <td><%= request.status %></td>
+          <td><%= request.assigned_to_role %></td>
+          <td>
+            <% for issue in @issues %>
+              <%= issue.title if request.issues.include?(issue)  %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

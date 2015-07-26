@@ -116,16 +116,13 @@
 <hr/>
 
 <div class="actions">
-    <%= f.submit :class => 'btn btn-primary button right' %>
-
+  <%= f.submit :class => 'btn btn-primary button right' %>
+  &nbsp;&nbsp;
+  <%= link_to 'Destroy', request_path(@request.id), class: 'btn', method: :delete, data: { confirm: 'Are you sure?' } %>
 </div>
 
 <% end %>
 
-    <% if current_user.admin? && !@request.new_record? %>
-      &nbsp;<%= button_to "Delete", {:controller => :requests,
-        :action => 'destroy', :id => @request.id }, :method => :delete, :class => 'btn' %>
-    <% end %>
 
 <hr/>
 
