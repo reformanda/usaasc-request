@@ -118,15 +118,11 @@
 <div class="actions">
   <%= f.submit :class => 'btn btn-primary button right' %>
   &nbsp;&nbsp;
-  <%= link_to 'Destroy', request_path(@request.id), class: 'btn', method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Destroy', request_path(@request.id), class: 'btn', method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
 </div>
 
 <% end %>
 
-
 <hr/>
-
-
-
 
 <%= link_to 'Back', requests_path %>

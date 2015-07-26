@@ -3,9 +3,15 @@
 
 <% if current_user.worker? || current_user.approver? || current_user.admin? %>
   <ul class="nav nav-pills" role="tablist">
-    <li role="presentation" class="<%= 'active' if params[:by_status].nil? %>"> <%= link_to 'Show All', {controller: 'requests', action: 'index'} %> </li>
-    <li role="presentation" class="<%= 'active' if params[:by_status] == '0' %>"> <%= link_to 'New Only', {controller: 'requests', action: 'index', :by_status => 0}  %> </li>
-    <li role="presentation" class="<%= 'active' if params[:by_status] == '1' %>"> <%= link_to 'Approved Only', {controller: 'requests', action: 'index', :by_status => 1}  %> </li>
+    <li role="presentation" style="margin-right:10px" class="<%= 'active' if params[:by_status].nil? %>"> 
+      <%= link_to 'Show All', {controller: 'requests', action: 'index'}, class: 'btn btn-default' %> 
+    </li>
+    <li role="presentation" style="margin-right:10px" class="<%= 'active' if params[:by_status] == '0' %>"> 
+      <%= link_to 'New Only', {controller: 'requests', action: 'index', :by_status => 0}, class: 'btn btn-default'  %> 
+    </li>
+    <li role="presentation" class="<%= 'active' if params[:by_status] == '1' %>"> 
+      <%= link_to 'Approved Only', {controller: 'requests', action: 'index', :by_status => 1}, class: 'btn btn-default'  %> 
+    </li>
   </ul>
 <% end %>
 
@@ -27,12 +33,16 @@
       <th></th>
       <% end %>
     </tr>
+    <% if @requests.count() != 0 %>
+    <tr><th><%= @requests.count() %> Records </th></tr>
+    <% end %>
   </thead>
 
   <tbody>
     <% if @requests.count() == 0 %>
       <tr><td colspan="100"><p>No Requests found: <%= @requests.count() %></p></td></tr>
     <% else %>
+
       <% @requests.each do |request| %>
         <tr class='clickable-row'  data-href="<%= edit_request_path(request) %>" style="cursor:pointer">
           <td>  <%= request.created_at.strftime("%m/%d/%Y")%>  <br/> <small><%=  request.created_at.strftime("%I:%M%p") %>&nbsp;EST</small></th>
@@ -57,13 +67,21 @@
 
 <br>
 
+<button id="new-request" class="btn btn-default" type="button">New Request</button>
 
 <script>
 jQuery(document).ready(function($) {
+    
     $(".clickable-row").click(function() {
-        window.document.location = $(this).data("href");
+      window.document.location = $(this).data("href");
     });
+    
+    $("#new-request").click(function() {
+      window.location.href = '/requests/new';
+    });
+
 });
 </script>
-<%= link_to 'New Request', new_request_path %>
+
+
 

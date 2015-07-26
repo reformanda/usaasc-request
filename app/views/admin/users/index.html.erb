@@ -1,6 +1,6 @@
 <h2>Listing Users</h2>
 
-<table class="table table-striped">
+<table class="table table-hover">
   <thead>
     <tr>
       <th>Name</th>
@@ -8,20 +8,17 @@
       <th>Phone</th>
       <th>Other phone</th>
       <th>Role</th>
-      <th colspan="3">Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @users.each do |user| %>
-      <tr>
+      <tr class='clickable-row'  data-href="<%= edit_admin_user_path(user) %>" style="cursor:pointer">
         <td><%= user.name %></td>
         <td><%= user.email %></td>
         <td><%= user.phone %></td>
         <td><%= user.other_phone %></td>
         <td><%= user.role %></td>
-        <td><%= link_to 'Edit', edit_admin_user_path(user) %></td>
-        <td><%= link_to 'Destroy', admin_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -29,4 +26,18 @@
 
 <br>
 
-<%= link_to 'New User', new_admin_user_path %> 
+<button id="new-user" class="btn btn-default" type="button">New User</button>
+
+<script>
+jQuery(document).ready(function($) {
+    
+    $(".clickable-row").click(function() {
+      window.document.location = $(this).data("href");
+    });
+    
+    $("#new-user").click(function() {
+      window.location.href = '/admine/users/new';
+    });
+
+});
+</script>
