@@ -7,5 +7,5 @@ export RAILS_ENV=production
 
 rake assets:clobber
 rake assets:precompile 
-
+rake db:migrate
 
