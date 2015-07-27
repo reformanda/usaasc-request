@@ -15,18 +15,14 @@
     </div>
   <% end %>
 
-
-
-
 <hr/>
-
 
 <div class="row">
 
 
   <div class="form-group col-sm-6">
     <label>Last Updated</label><br/>
-    <%= localize(@request.updated_at, :format => :long) %>
+    <%= @request.updated_at.strftime("%m/%d/%Y")%>  <small><%=  @request.updated_at.strftime("%I:%M%p") %>&nbsp;EST</small>
   </div>
 
 </div>
@@ -75,14 +71,26 @@
 <% if current_user.approver? || current_user.worker? || current_user.admin? %>
   
   <div class="row">
-    <div class="form-group col-sm-6">
+    <div class="form-group col-sm-3">
 
       <%= f.label :status, 'Status' %>
       <br/>
       <%= f.select :status, options_for_select([["Select One", ""], "newrequest", "approved", "disapproved", "completed", "closed", "canceled"], :selected => @request.status), :class => 'form-control' %>
       
     </div>
+
+    <div class="form-group col-sm-3">
+
+      <%= f.label :assigned_to_user, 'Assign To' %>
+      <br/>
+
+      <%= f.select :assigned_to_user, options_for_select(@workers.collect { |worker| [worker.name.titleize, worker.id] }, :selected => @request.assigned_to_user), {:include_blank => true}, { id: 'assigned_to_user_select' } %>
+      
+    </div>
+
+
   </div>
+
 <% end %>
 
 <div class="row">
@@ -94,13 +102,13 @@
 
 </div>
 
-<% if @comments.count > 1 %>
+<% if @comments.count > 0 %>
 <% @comments.each do |p| %>
     <div class="row">
 
       <div class="form-group col-sm-6">
         &nbsp;&nbsp;
-         <small><%= localize(p.created_at, :format => :long) %> &nbsp;&nbsp; <%= p.user.name if p.user != nil %></small>
+         <small><%= p.created_at.strftime("%m/%d/%Y")%>  <%=  p.created_at.strftime("%I:%M%p") %>&nbsp;EST &nbsp;&nbsp; <%= p.user.name if p.user != nil %></small>
         
         <div style="margin-left:30px;">
          <%= p.comment %>
@@ -118,7 +126,7 @@
 <div class="actions">
   <%= f.submit :class => 'btn btn-primary button right' %>
   &nbsp;&nbsp;
-  <%= link_to 'Destroy', request_path(@request.id), class: 'btn', method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %>
+  <%= link_to 'Destroy', request_path(@request.id), class: 'btn btn-default', method: :delete, data: { confirm: 'Are you sure?' } %>
 </div>
 
 <% end %>

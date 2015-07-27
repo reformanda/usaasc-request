@@ -18,7 +18,7 @@ class RequestsController < ApplicationController
     end
     # pagination
     @requests = @requests.paginate(:page => params[:page], :per_page => 10)
-    
+
     @issues = Issue.all
   end
 
@@ -58,6 +58,7 @@ class RequestsController < ApplicationController
 
     @issues = Issue.all
     @comments = @request.comments.recent.limit(10).all
+    @workers = User.where("role > 0")
     @disable_fields = current_user.approver? || current_user.worker?
   end
 
@@ -68,7 +69,7 @@ class RequestsController < ApplicationController
     params[:request][:email] ||= current_user.email
     params[:request][:name] ||= current_user.name
     @request = Request.new(request_params)
-
+    @request.created_by_user = current_user.id
 
     respond_to do |format|
 
@@ -76,6 +77,7 @@ class RequestsController < ApplicationController
         add_issues_to_request
         @request.newrequest!
         @request.approver!
+
 
         if !params[:request][:comment].empty?
           comment = @request.comments.create
@@ -90,6 +92,9 @@ class RequestsController < ApplicationController
         format.json { render :show, status: :created, location: @request }
 
       else
+            
+        @comments = @request.comments.recent.limit(10).all
+        @issues = Issue.all
         format.html { render :new }
         format.json { render json: @request.errors, status: :unprocessable_entity }
       end
@@ -100,6 +105,10 @@ class RequestsController < ApplicationController
   # PATCH/PUT /requests/1
   # PATCH/PUT /requests/1.json
   def update
+
+    old_assigned_to_user = @request.assigned_to_user.to_s  
+    new_assigned_to_user = params[:request][:assigned_to_user]
+
     respond_to do |format|
 
       params[:request][:issue_ids] ||= []
@@ -129,10 +138,18 @@ class RequestsController < ApplicationController
           elsif params[:status] == "disapproved"
             @request.disapproved!
             @request.requester!
-          end          
+          end     
+
         else
            add_issues_to_request 
         end
+
+        # send email notification when assigned_to_user field has changed
+        if old_assigned_to_user != new_assigned_to_user && !new_assigned_to_user.nil?
+          RequestMailer.assignee_email(@request).deliver_later
+        end
+
+
         format.html { redirect_to @request, notice: 'Request was successfully updated.' }
         format.json { render :show, status: :ok, location: @request }
       else
@@ -153,8 +170,6 @@ class RequestsController < ApplicationController
   end
 
 
-
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_request
@@ -166,7 +181,7 @@ class RequestsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def request_params
-      params.require(:request).permit(:name, :email, :phone, :other_phone, :description, :subject, :status)
+      params.require(:request).permit(:name, :email, :phone, :other_phone, :description, :subject, :status, :assigned_to_user)
     end
 
     def show_request

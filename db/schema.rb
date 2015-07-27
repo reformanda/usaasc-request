@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150725204917) do
+ActiveRecord::Schema.define(version: 20150726233001) do
 
   create_table "comments", force: :cascade do |t|
     t.string   "title",            limit: 50, default: ""
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 20150725204917) do
     t.integer  "status"
     t.string   "subject"
     t.integer  "priority"
+    t.integer  "assigned_to_user"
+    t.integer  "created_by_user"
   end
 
   create_table "requests_issues", force: :cascade do |t|
