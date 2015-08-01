@@ -4,7 +4,7 @@ class CreateApproverService
       user.password = Rails.application.secrets.approver_password
       user.password_confirmation = Rails.application.secrets.approver_password
       user.name = Rails.application.secrets.approver_name
-      user.confirm!
+      user.confirm
       user.approver!
     end
   end

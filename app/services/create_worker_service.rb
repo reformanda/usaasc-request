@@ -4,7 +4,7 @@ class CreateWorkerService
       user.password = Rails.application.secrets.worker_password
       user.password_confirmation = Rails.application.secrets.worker_password
       user.name = Rails.application.secrets.worker_name
-      user.confirm!
+      user.confirm
       user.worker!
     end
   end

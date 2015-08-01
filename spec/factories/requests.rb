@@ -5,6 +5,7 @@ email "MyString"
 phone "MyString"
 other_phone "MyString"
 description "MyText"
+subject "my subject"
   end
 
 end
