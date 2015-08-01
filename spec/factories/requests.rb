@@ -1,11 +1,13 @@
 FactoryGirl.define do
   factory :request do
-    name "MyString"
-email "MyString"
-phone "MyString"
-other_phone "MyString"
-description "MyText"
-subject "my subject"
+  	
+    name "testuser"
+	email "test@email.com"
+	phone "111-222-3333"
+	other_phone "MyString"
+	description "MyText"
+	subject "my subject"
+
   end
 
 end

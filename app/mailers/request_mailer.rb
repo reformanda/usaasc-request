@@ -11,7 +11,7 @@ class RequestMailer < ApplicationMailer
     @request = request
     @url = url_for(only_path: false, controller: "requests", action: "edit", id: request.id) 
     @body = request.subject + ': ' + request.description
-    mail(to: @request.assignee.email, subject: 'Request Assigned')
+    mail(to: @request.email, subject: 'Request Assigned')
   end
 
 end
