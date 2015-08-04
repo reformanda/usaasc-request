@@ -4,8 +4,10 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.2'
 
+gem 'pg', :group =>[:production]
+
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', :group => [:development, :test, :production]
+gem 'sqlite3', :group => [:development, :test]
 #gem 'pg', :group => :production
 
 # Use SCSS for stylesheets
@@ -88,7 +90,7 @@ end
 
 gem 'has_scope'
 
-gem 'rails_12factor', group: :production
+gem 'rails_12factor', group: [:production, :aws]
 
 gem 'acts_as_commentable'
 
