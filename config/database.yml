@@ -20,7 +20,7 @@ test:
   <<: *default
   database: db/test.sqlite3
 
-production:
+production-xxx:
   <<: *default
   database: db/production.sqlite3
 #  adapter: postgresql
@@ -28,7 +28,7 @@ production:
 #  database: usaasc_request
 #  username: <%= ENV['DB_USERNAME'] %>
 #  password: <%= ENV['DB_PASSWORD'] %>
-aws:
+production:
   adapter: postgresql
   encoding: unicode
   database: <%= ENV['RDS_DB_NAME'] %>
